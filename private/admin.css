@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel - SRC Voting</title>
+    <link rel="stylesheet" href="/admin.css" />
+    <link
+      rel="shortcut icon"
+      href="/images/black lo.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <div class="topLeft">
+      <div class="logo">
+        <div class="image">
+          <img src="/images/black lo.png" alt="BOtwe logo" />
+        </div>
+      </div>
+      <span class="badge">Mfantsipim</span>
+      <span class="badge">SRC Admin</span>
+      <span
+        class="badge"
+        style="border-color: rgba(40, 194, 32, 0.5); color: #86efac"
+        >System Live</span
+      >
+    </div>
+
+    <div class="votingPanel">
+      <div class="top">
+        <span>Admin: Verification Queue</span>
+        <span>Pending Actions: <span id="topPendingCount">0</span></span>
+      </div>
+
+      <div class="filter adminFilter">
+        <input
+          type="text"
+          id="searchTrans"
+          placeholder="Search Trans ID..."
+          class="adminSearch"
+        />
+      </div>
+
+      <div class="votingArea">
+        <div class="statsBar">
+          <div class="badge">Total Revenue: GHS <span id="totalRev">0.00</span></div>
+          <div class="badge">Pending Votes: <span id="pendingCount">0</span></div>
+        </div>
+
+        <div class="tableWrapper">
+          <table class="adminTable">
+            <thead>
+              <tr>
+                <th>Voter Details</th>
+                <th>Nominee</th>
+                <th>Votes/Amount</th>
+                <th>MoMo Trans ID</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="verificationList"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="/admin.js"></script>
+  </body>
+</html>
