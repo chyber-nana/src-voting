@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel - SRC Voting</title>
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="shortcut icon"
+      href="./images/black lo.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+
+    <div class="topLeft">
+      <div class="logo">
+        <div class="image">
+          <img src="./images/black lo.png" alt="BOtwe logo" />
+        </div>
+      </div>
+      <span class="badge">Mfantsipim</span>
+      <span class="badge">SRC Admin</span>
+      <span
+        class="badge"
+        style="border-color: rgba(40, 194, 32, 0.5); color: #86efac"
+        >System Live</span
+      >
+    </div>
+
+    <div class="votingPanel">
+      <div class="top">
+        <span>Admin: Verification Queue</span>
+        <span>Pending Actions: <span id="topPendingCount">0</span></span>
+      </div>
+
+      <div class="filter adminFilter">
+        <input
+          type="text"
+          id="searchTrans"
+          placeholder="Search Trans ID..."
+          class="adminSearch"
+        />
+      </div>
+
+      <div class="votingArea">
+  <div class="statsBar">
+    <div class="badge">Total Revenue: GHS <span id="totalRev">0.00</span></div>
+    <div class="badge">Pending Votes: <span id="pendingCount">0</span></div>
+  </div>
+
+  <section class="manualVoteSection">
+    <div class="manualVoteCard">
+      <div class="sectionTop">
+        <div>
+          <h2>Manual Vote Entry</h2>
+          <p>Add votes directly to a nominee from the admin panel.</p>
+        </div>
+      </div>
+
+      <div class="manualVoteForm">
+        <div class="fieldGroup">
+          <label for="manualCategory">Category</label>
+          <select id="manualCategory" name="manualCategory"></select>
+        </div>
+
+        <div class="fieldGroup">
+          <label for="manualNominee">Nominee</label>
+          <select id="manualNominee" name="manualNominee"></select>
+        </div>
+
+        <div class="fieldGroup">
+          <label for="manualVotes">Votes</label>
+          <input type="number" id="manualVotes" min="1" value="1" placeholder="Enter votes" />
+        </div>
+
+        <div class="fieldGroup">
+          <label>Amount Generated</label>
+          <div class="amountPreview" id="amountPreview">GH₵ 0.00</div>
+        </div>
+
+        <div class="fieldGroup actionGroup">
+          <button class="actionBtn primaryBtn" id="manualVoteBtn" type="button">
+            Add Votes
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="manageSection">
+    <div class="manageHeader">
+      <div>
+        <h2>Manage Categories & Nominees</h2>
+        <p>Click a category to edit its nominees, rename it, or add more people.</p>
+      </div>
+      <button class="actionBtn primaryBtn" id="openManagerBtn">Edit</button>
+    </div>
+
+    <div class="managerShell hidden" id="managerShell">
+      <div class="managerGrid">
+
+        <div class="managerCard categoriesCard">
+          <div class="cardTop">
+            <h3>Categories</h3>
+          </div>
+
+          <div class="categoriesList" id="categoriesList"></div>
+
+          <div class="addRow">
+            <input type="text" id="newCategoryInput" placeholder="New category name" />
+            <button class="actionBtn primaryBtn" id="addCategoryBtn">Add Category</button>
+          </div>
+        </div>
+
+        <div class="managerCard nomineesCard">
+          <div class="cardTop">
+            <h3 id="selectedCategoryTitle">Select a Category</h3>
+            <div class="titleActions">
+              <button class="actionBtn subtleBtn" id="renameCategoryBtn">Rename</button>
+              <button class="actionBtn dangerBtn" id="deleteCategoryBtn">Delete</button>
+            </div>
+          </div>
+
+          <div class="emptyState" id="emptyNomineesState">
+            Select a category on the left to manage nominees.
+          </div>
+
+          <div class="nomineesEditor hidden" id="nomineesEditor">
+            <div class="nomineesList" id="nomineesList"></div>
+
+            <div class="addRow">
+              <input type="text" id="newNomineeInput" placeholder="Add new nominee" />
+              <button class="actionBtn primaryBtn" id="addNomineeBtn">Add Nominee</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="tableWrapper">
+    <table class="adminTable">
+      <thead>
+        <tr>
+          <th>Voter Details</th>
+          <th>Nominee</th>
+          <th>Votes/Amount</th>
+          <th>MoMo Trans ID</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="verificationList"></tbody>
+    </table>
+  </div>
+</div>
+    </div>
+
+    <script src="admin.js"></script>
+  </body>
+</html>
