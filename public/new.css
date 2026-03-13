@@ -558,7 +558,7 @@ body {
   padding: 0 clamp(10px, 1.5vw, 12px);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(180, 35, 24, 0.4);
-  color: #fff;
+  color: #6d6d6d;
   font-size: clamp(0.85rem, 2.2vw, 0.95rem);
   outline: none;
   transition: all 0.25s ease;
