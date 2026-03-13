@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voting</title>
+  <link rel="stylesheet" href="new.css">
+  <link rel="shortcut icon" href="./images/black lo.png" type="image/x-icon">
+</head>
+<body>
+  <div class="topLeft">
+    <div class="logo">
+      <div class="image">
+        <img src="./images/black lo.png" alt="BOtwe logo">
+      </div>
+    </div>
+    <span class="badge">Mfantsipim</span>
+    <span class="badge">SRC</span>
+    <span class="badge">Voting</span>
+  </div>
+
+<!-- UPDATED PAYMENT MODAL (replace your existing <div id="paymentModal"> ... </div> with this entire block) -->
+<div id="paymentModal" class="modal-overlay" style="display: none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Confirm Payment</h3>
+      <button class="close-x" type="button" onclick="closeModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <p>Please send a total of <strong>GHS <span id="displayAmount">0.00</span></strong> to the following number:</p>
+
+      <div class="momo-details">
+        <div class="detail-row">
+          <span>Number:</span>
+          <strong>027 793 2264</strong>
+        </div>
+        <div class="detail-row">
+          <span>Name:</span>
+          <strong>BERNARD NII AMOONAKWA DODOO</strong>
+        </div>
+        <div class="detail-row">
+          <span>Reference:</span>
+          <strong>VOTING</strong>
+        </div>
+      </div>
+
+      <p class="instruction-text">After sending, enter your Transaction ID below:</p>
+      <input
+        type="text"
+        id="momoTransId"
+        placeholder="Enter MoMo Trans ID (e.g. 2831...)"
+        class="vote-count-input"
+      >
+
+      <!-- NEW NOTE SECTION - exactly as you requested -->
+      <div class="payment-note">
+        <strong>Note:</strong>
+        <ol class="notes-list">
+          <li>Make sure to send the amount to tally the votes</li>
+          <li>Enter your transaction id properly</li>
+          <li>Any money sent that doesnt tally with the votes will not be updated and counted</li>
+          <li>There are no refunds</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="approveBtn" type="button" onclick="submitManualVote()" id="confirmBtn">
+        Submit for Verification
+      </button>
+      <button class="rejectBtn" type="button" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+  <div class="votingPanel">
+    <div class="top">
+      <span>Voter: Anonymous</span>
+      <span>Votes: 0/0</span>
+    </div>
+
+    <div class="filter">
+      <span class="decrease">-</span>
+      <div class="displayNumber">
+        <span class="number">0</span>
+        <span class="votes">Categories</span>
+      </div>
+      <span class="increase">+</span>
+    </div>
+
+    <div class="votingArea">
+      <ul class="votesList empty">
+        <li class="emptyMessage">Click + To add nomination</li>
+      </ul>
+    </div>
+
+    <div class="voteButtons">
+      <button class="voteButton" type="button" title="Vote">Vote</button>
+    </div>
+  </div>
+
+  <form action="" class="votingForm">
+    <label for="category">Category</label>
+    <select name="category" id="category" title="Category Selection"></select>
+
+    <label for="nominee">Nominee</label>
+    <select name="nominee" id="nominee" title="Nominee">
+      <option value="ALEXANDER FUSSEN MORNY">ALEXANDER FUSSEN MORNY</option>
+    </select>
+
+    <div class="voteFilter">
+      <span class="decrease">-</span>
+      <div class="displayNumber">
+        <span class="number">0</span>
+        <span class="votes">Votes</span>
+      </div>
+      <span class="increase">+</span>
+    </div>
+
+    <div class="buttons">
+      <button type="button" id="cancelButton">Cancel</button>
+      <button type="button" id="okayButton" data-id="1">Okay</button>
+    </div>
+  </form>
+
+  <div id="voteCountModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content vote-count-modal">
+      <div class="modal-header">
+        <h3>Select Number of Votes</h3>
+        <button class="close-x" type="button" onclick="closeVoteCountModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="instruction-text">Choose how many votes you want for this nominee.</p>
+
+        <div class="vote-count-picker">
+          <button type="button" class="decrease" id="voteCountMinus">-</button>
+          <div class="displayNumber">
+            <span class="number" id="voteCountValue">0</span>
+            <span class="votes">Votes</span>
+          </div>
+          <button type="button" class="increase" id="voteCountPlus">+</button>
+        </div>
+
+        <input
+          type="number"
+          id="voteCountInput"
+          class="vote-count-input"
+          min="0"
+          value="0"
+          placeholder="Enter number of votes"
+        >
+      </div>
+
+      <div class="modal-footer">
+        <button class="approveBtn" type="button" onclick="applyVoteCount()">Apply</button>
+        <button class="rejectBtn" type="button" onclick="closeVoteCountModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

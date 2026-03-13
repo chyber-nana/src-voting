@@ -1,0 +1,228 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #454545;
+    color: #fff;
+    padding: 50px;
+    position: relative;
+    width: 100%;
+    height: 100dvh;
+}
+
+.topLeft {
+    width: clamp(200px, 20vw, 300px);
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    /* background-color: #000; */
+}
+
+.badge {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #86160e;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.numberOfVotes {
+    background-color: #2e2e2e;
+    color: #fff;
+    padding: 5px 10px;
+    width: clamp(50px, 10vw, 100px);
+    text-align: center;
+    border-radius: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.personInfo {
+    width: 100%;
+    height: 10rem;
+    background-color: #2e2e2e;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.personInfo span:nth-child(1) {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold
+}
+
+p {
+    color: #ffffff8a;
+}
+
+.personInfo form {
+    width: 100%;
+    height: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+form .formTile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 20%;
+}
+
+.formTile label {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.formTile input {
+    width: 100%;
+    height: 2.3rem;
+    border: 2px solid #86160e;
+    border-radius: 20px;
+    text-indent: 10px;
+    background-color: transparent;
+    color: #fff;
+    font-family: "Quicksand";
+    outline: none;
+}
+
+button.submit {
+    width: 200px;
+    height: 3rem;
+    font-family: "Quicksand";
+    border-radius: 20px;
+    outline: none;
+    border: 3px solid #8d3c36;
+    font-size: 1.2rem;
+    color: #8d3c36;
+    cursor: pointer;
+    background-color: transparent;
+    transition: all .35s ease-in-out;
+}
+
+button.submit:hover {
+    background-color: #8d3c36;
+    color: #fff;
+    transition: all .35s ease-in-out;
+}
+
+.votingPanel {
+    width: 100%;
+    height: 26rem;
+    margin: 10px;
+    border-radius: 15px;
+    background-color: #2e2e2e;
+    display: grid;
+    grid-template-rows: 2rem 2rem 1fr 4rem;
+    place-items: center;
+    padding: 10px;
+}
+
+.filter {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 50px 1fr 50px;
+    place-items: center;
+}
+
+.increase, .decrease {
+    background-color: #2e2e2e;
+    width: 35px;
+    cursor: pointer;
+    box-shadow: 0px 0px 2px #fff;
+    height: 35px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: all .35s ease-in-out;
+}
+
+.increase:hover, .decrease:hover {
+    background-color: #fff;
+    color: #000;
+    transition: all .35s ease-in-out;
+}
+
+.votingPanel .top {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.displayNumber {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.displayNumber .number {
+    font-size: 2rem;
+}
+
+.displayNumber .votes {
+    font-size: .7rem;
+}
+
+.votingPanel .votingArea {
+    width: 70%;
+    height: 80%;
+    border-radius: 15px 10px 10px 15px;
+    background-color: #c1c1c12b;
+    overflow-y: scroll;
+}
+
+.votingPanel .votingArea::-webkit-scrollbar {
+    width: 8px;
+    background-color: #454545;
+    border-radius: 0 15px 15px 0;
+}
+
+.votingPanel .votingArea::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background-color: #2e2e2e;
+}
+
+
+.votingArea .votesList {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(auto-fit, minmax(1fr, 200px));
+    place-items: center;
+    list-style: none;
+    gap: 20px;
+    padding: 20px;
+}
+
+
+.votesList .vote {
+    width: clamp(80%, 20vw, 200px);
+    height: 150px;
+    background-color: #2e2e2e;
+    box-shadow: 0px 0px 3px #ffffff8a;
+    border-radius: 20px;
+    display: grid;
+    cursor: pointer;
+    place-items: center;
+}
+
+.empty {
+    display: grid;
+    grid-template-columns: 1fr !important;
+}

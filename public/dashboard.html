@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voting Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="shortcut icon" href="./images/black lo.png" type="image/x-icon">
+</head>
+<body>
+
+  <div class="topLeft">
+    <div class="logo">
+      <div class="image">
+        <img src="./images/black lo.png" alt="Botwe logo">
+      </div>
+    </div>
+    <span class="badge">Mfantsipim</span>
+    <span class="badge">SRC</span>
+    <span class="badge">Voting</span>
+    <span class="badge dashboardBadge">Dashboard</span>
+  </div>
+
+  <main class="dashboard">
+
+    <section class="summaryGrid" id="summaryGrid">
+  <div class="summaryCard totalCard">
+    <span class="cardLabel">Total Amount Made</span>
+    <h2 id="totalAmount">GH₵ 0.00</h2>
+    <p>Updated from all submitted votes</p>
+  </div>
+</section>
+
+<section class="manualVoteSection">
+  <div class="manualVoteCard">
+    <div class="sectionTop">
+      <div>
+        <h2>Manual Vote Entry</h2>
+        <p>Add votes directly to a nominee from the dashboard.</p>
+      </div>
+    </div>
+
+    <div class="manualVoteForm">
+      <div class="fieldGroup">
+        <label for="manualCategory">Category</label>
+        <select id="manualCategory" name="manualCategory"></select>
+      </div>
+
+      <div class="fieldGroup">
+        <label for="manualNominee">Nominee</label>
+        <select id="manualNominee" name="manualNominee"></select>
+      </div>
+
+      <div class="fieldGroup">
+        <label for="manualVotes">Votes</label>
+        <input type="number" id="manualVotes" min="1" value="1" placeholder="Enter votes">
+      </div>
+
+<div class="fieldGroup">
+  <label>Amount Generated</label>
+  <div class="amountPreview" id="amountPreview">GH₵ 0.00</div>
+</div>
+
+      <div class="fieldGroup actionGroup">
+        <button class="actionBtn primaryBtn" id="manualVoteBtn" type="button">
+          Add Votes
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section class="tableSection">
+      <div class="sectionTop">
+        <div>
+          <h2>Nominees by Category</h2>
+          <p>View nominees, votes, and amount generated per category.</p>
+        </div>
+
+        <div class="filterBox">
+          <label for="categoryFilter">Category</label>
+          <select id="categoryFilter" name="categoryFilter">
+          </select>
+        </div>
+      </div>
+
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nominee</th>
+              <th>Category</th>
+              <th>Votes</th>
+              <th>Amount Made</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="nomineeTableBody">
+            <tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="manageSection">
+      <div class="manageHeader">
+        <div>
+          <h2>Manage Categories & Nominees</h2>
+          <p>Click a category to edit its nominees, rename it, or add more people.</p>
+        </div>
+        <button class="actionBtn primaryBtn" id="openManagerBtn">Edit</button>
+      </div>
+
+      <div class="managerShell hidden" id="managerShell">
+        <div class="managerGrid">
+
+          <div class="managerCard categoriesCard">
+            <div class="cardTop">
+              <h3>Categories</h3>
+            </div>
+
+            <div class="categoriesList" id="categoriesList"></div>
+
+            <div class="addRow">
+              <input type="text" id="newCategoryInput" placeholder="New category name">
+              <button class="actionBtn primaryBtn" id="addCategoryBtn">Add Category</button>
+            </div>
+          </div>
+
+          <div class="managerCard nomineesCard">
+            <div class="cardTop">
+              <h3 id="selectedCategoryTitle">Select a Category</h3>
+              <div class="titleActions">
+                <button class="actionBtn subtleBtn" id="renameCategoryBtn">Rename</button>
+                <button class="actionBtn dangerBtn" id="deleteCategoryBtn">Delete</button>
+              </div>
+            </div>
+
+            <div class="emptyState" id="emptyNomineesState">
+              Select a category on the left to manage nominees.
+            </div>
+
+            <div class="nomineesEditor hidden" id="nomineesEditor">
+              <div class="nomineesList" id="nomineesList"></div>
+
+              <div class="addRow">
+                <input type="text" id="newNomineeInput" placeholder="Add new nominee">
+                <button class="actionBtn primaryBtn" id="addNomineeBtn">Add Nominee</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

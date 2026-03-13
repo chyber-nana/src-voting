@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - SRC Voting</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="shortcut icon" href="/images/black lo.png" type="image/x-icon">
+</head>
+<body>
+  <div class="loginOverlay" style="position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 24px;">
+    <div class="loginModal">
+      <div class="loginTop">
+        <div class="logo">
+          <div class="image">
+            <img src="./images/black lo.png" alt="BOtwe logo" />
+          </div>
+        </div>
+        <h2>Admin Login</h2>
+        <p>Sign in to access the SRC voting verification panel.</p>
+      </div>
+
+      <form id="loginForm" class="loginForm">
+        <label for="adminUsername">Username</label>
+        <input
+          type="text"
+          id="adminUsername"
+          class="adminSearch"
+          placeholder="Enter username"
+          autocomplete="username"
+        />
+
+        <label for="adminPassword">Password</label>
+        <input
+          type="password"
+          id="adminPassword"
+          class="adminSearch"
+          placeholder="Enter password"
+          autocomplete="current-password"
+        />
+
+        <p id="loginError" class="loginError"></p>
+
+        <button type="submit" class="loginBtn">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('adminUsername').value.trim();
+      const password = document.getElementById('adminPassword').value;
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          window.location.href = data.redirect || '/admin';
+        } else {
+          loginError.textContent = data.error || 'Login failed';
+        }
+      } catch (err) {
+        loginError.textContent = 'Server error. Please try again.';
+      }
+    });
+  </script>
+</body>
+</html>
