@@ -1,70 +1,609 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Panel - SRC Voting</title>
-    <link rel="stylesheet" href="/admin.css" />
-    <link
-      rel="shortcut icon"
-      href="/images/black lo.png"
-      type="image/x-icon"
-    />
-  </head>
-  <body>
-    <div class="topLeft">
-      <div class="logo">
-        <div class="image">
-          <img src="/images/black lo.png" alt="BOtwe logo" />
-        </div>
-      </div>
-      <span class="badge">Mfantsipim</span>
-      <span class="badge">SRC Admin</span>
-      <span
-        class="badge"
-        style="border-color: rgba(40, 194, 32, 0.5); color: #86efac"
-        >System Live</span
-      >
-    </div>
+.loginOverlay {
+  background:
+    linear-gradient(rgba(8, 12, 20, 0.82), rgba(8, 12, 20, 0.9)),
+    radial-gradient(circle at top left, rgba(134, 22, 14, 0.25), transparent 40%);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+}
 
-    <div class="votingPanel">
-      <div class="top">
-        <span>Admin: Verification Queue</span>
-        <span>Pending Actions: <span id="topPendingCount">0</span></span>
-      </div>
+.loginModal {
+  width: min(92vw, 430px);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  padding: 28px;
+}
 
-      <div class="filter adminFilter">
-        <input
-          type="text"
-          id="searchTrans"
-          placeholder="Search Trans ID..."
-          class="adminSearch"
-        />
-      </div>
+.loginTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
 
-      <div class="votingArea">
-        <div class="statsBar">
-          <div class="badge">Total Revenue: GHS <span id="totalRev">0.00</span></div>
-          <div class="badge">Pending Votes: <span id="pendingCount">0</span></div>
-        </div>
+.loginTop h2 {
+  font-size: 1.5rem;
+  color: var(--text);
+}
 
-        <div class="tableWrapper">
-          <table class="adminTable">
-            <thead>
-              <tr>
-                <th>Voter Details</th>
-                <th>Nominee</th>
-                <th>Votes/Amount</th>
-                <th>MoMo Trans ID</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="verificationList"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+.loginTop p {
+  color: var(--soft);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
 
-    <script src="/admin.js"></script>
-  </body>
-</html>
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.loginForm label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.loginError {
+  min-height: 20px;
+  color: #fca5a5;
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.loginBtn {
+  margin-top: 8px;
+  width: 100%;
+  height: 46px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: white;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 24px rgba(134, 22, 14, 0.3);
+}
+
+.loginBtn:hover {
+  transform: translateY(-2px);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #111827;
+  --panel: rgba(17, 24, 39, 0.88);
+  --panel-2: rgba(31, 41, 55, 0.92);
+  --card: rgba(55, 65, 81, 0.45);
+  --text: #f9fafb;
+  --muted: #cbd5e1;
+  --soft: #94a3b8;
+  --border: rgba(255, 255, 255, 0.12);
+  --accent: #86160e;
+  --accent-light: #b42318;
+  --accent-soft: rgba(134, 22, 14, 0.18);
+  --shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+  --radius: 22px;
+  --radius-sm: 14px;
+}
+
+body {
+  min-height: 100dvh;
+  width: 100%;
+  padding: 32px;
+  color: var(--text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(134, 22, 14, 0.22), transparent 58%),
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.05), transparent 42%),
+    linear-gradient(135deg, #0f172a, #111827 65%, #1f2937);
+  display: grid;
+  gap: 24px;
+  position: relative;
+  overflow-x: hidden;
+  place-items: center;
+}
+
+/* Header & Logo (Your exact styles) */
+.topLeft { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; height: 6rem; width: 80%; }
+.badge { padding: 10px 16px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(180, 35, 24, 0.45); color: #fff; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.4px; backdrop-filter: blur(10px); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); }
+.logo { display: flex; align-items: center; justify-content: center; }
+.logo .image { width: 50px; height: 90px; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); padding: 6px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25); backdrop-filter: blur(6px); }
+.logo .image img { width: 100%; height: 100%; object-fit: contain; filter: brightness(1.1) contrast(1.1); }
+
+/* Panel Area */
+.votingPanel {
+  width: 80%;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  min-height: 630px;
+  padding: 24px;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 20px;
+}
+.votingPanel .top { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); color: var(--muted); font-weight: 600; }
+.votingPanel .votingArea { width: 100%; height: 100%; border-radius: 18px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); overflow-y: auto; padding: 16px; }
+
+/* Scrollbar */
+.votingPanel .votingArea::-webkit-scrollbar { width: 10px; }
+.votingPanel .votingArea::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.04); border-radius: 999px; }
+.votingPanel .votingArea::-webkit-scrollbar-thumb { background: rgba(180, 35, 24, 0.55); border-radius: 999px; }
+
+/* Admin Search Bar */
+.adminFilter { grid-template-columns: 1fr; max-width: 400px; margin: 0; }
+.adminSearch { width: 100%; height: 45px; border-radius: 14px; padding: 0 16px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); color: var(--text); font-size: 0.95rem; outline: none; transition: 0.25s; }
+.adminSearch:focus { border-color: var(--accent-light); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+/* Admin Table Design */
+.tableWrapper { width: 100%; overflow-x: auto; }
+.adminTable { width: 100%; border-collapse: collapse; text-align: left; }
+.adminTable th { padding: 16px; border-bottom: 1px solid var(--border); color: var(--soft); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+.adminTable td { padding: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); color: var(--text); font-size: 0.95rem; vertical-align: middle; }
+
+/* Data Elements in Table */
+.voterData { display: flex; flex-direction: column; gap: 4px; }
+.voterData .name { font-weight: 600; }
+.voterData .phone { font-size: 0.8rem; color: var(--soft); }
+
+.voteData { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.voteCountBadge { background: var(--accent-soft); color: #fff; padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(180, 35, 24, 0.4); font-weight: 700; font-size: 0.85rem; }
+.ghsAmount { font-size: 0.85rem; color: #86efac; font-weight: 600; }
+
+.transBadge { background: rgba(0,0,0,0.3); padding: 6px 10px; border-radius: 6px; font-family: monospace; color: var(--muted); border: 1px solid rgba(255, 255, 255, 0.1); letter-spacing: 1px; }
+
+/* Action Buttons */
+.actionButtons { display: flex; gap: 10px; }
+.approveBtn, .rejectBtn { width: 40px; height: 40px; border-radius: 12px; font-weight: 800; font-size: 1.1rem; cursor: pointer; border: none; transition: all 0.25s ease; display: grid; place-items: center; }
+
+.approveBtn { background: rgba(40, 194, 32, 0.15); border: 1px solid rgba(40, 194, 32, 0.4); color: #86efac; }
+.approveBtn:hover { background: rgba(40, 194, 32, 0.3); transform: scale(1.05); }
+
+.rejectBtn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: var(--soft); }
+.rejectBtn:hover { background: rgba(180, 35, 24, 0.2); border-color: var(--accent); color: #fff; transform: scale(1.05); }
+
+/* Responsive adjustments */
+@media (max-width: 900px) { body { padding: 20px; } .votingPanel, .topLeft { width: 95%; } }
+@media (max-width: 768px) {
+  .adminTable thead { display: none; }
+  .adminTable tr { display: flex; flex-direction: column; border-bottom: 2px solid var(--border); padding-bottom: 16px; margin-bottom: 16px; }
+  .adminTable td { display: flex; justify-content: space-between; align-items: center; border: none; padding: 8px 0; }
+  .adminTable td::before { content: attr(data-label); color: var(--soft); font-size: 0.8rem; text-transform: uppercase; }
+  .voteData { align-items: flex-end; }
+  .voterData { align-items: flex-end; }
+}
+
+.statsBar {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.loginOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background:
+    linear-gradient(rgba(8, 12, 20, 0.82), rgba(8, 12, 20, 0.9)),
+    radial-gradient(circle at top left, rgba(134, 22, 14, 0.25), transparent 40%);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.loginOverlay.hidden {
+  display: none;
+}
+
+.loginModal {
+  width: min(92vw, 430px);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  padding: 28px;
+}
+
+.loginTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.loginTop h2 {
+  font-size: 1.5rem;
+  color: var(--text);
+}
+
+.loginTop p {
+  color: var(--soft);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.loginForm label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.loginError {
+  min-height: 20px;
+  color: #fca5a5;
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.loginBtn {
+  margin-top: 8px;
+  width: 100%;
+  height: 46px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: white;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 24px rgba(134, 22, 14, 0.3);
+}
+
+.loginBtn:hover {
+  transform: translateY(-2px);
+}
+
+.loginBtn:active {
+  transform: translateY(0);
+}
+
+.sectionTop,
+.manageHeader,
+.cardTop {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.sectionTop {
+  margin-bottom: 20px;
+}
+
+.sectionTop h2,
+.manageHeader h2 {
+  font-size: 1.35rem;
+  margin-bottom: 8px;
+}
+
+.sectionTop p,
+.manageHeader p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.actionBtn {
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.actionBtn:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.08);
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, #86160e, #b42318);
+  border: none;
+  box-shadow: 0 10px 24px rgba(134, 22, 14, 0.3);
+}
+
+.primaryBtn:hover {
+  box-shadow: 0 14px 28px rgba(134, 22, 14, 0.38);
+}
+
+.subtleBtn {
+  color: #e5e7eb;
+}
+
+.dangerBtn {
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+}
+
+.dangerBtn:hover {
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.manualVoteSection {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.manualVoteCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.manualVoteForm {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  align-items: end;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldGroup label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.fieldGroup select,
+.fieldGroup input,
+.addRow input,
+.nomineeNameInput,
+.categoryNameInput {
+  height: 46px;
+  border-radius: 14px;
+  padding: 0 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(180,35,24,0.45);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.fieldGroup select:focus,
+.fieldGroup input:focus,
+.addRow input:focus,
+.nomineeNameInput:focus,
+.categoryNameInput:focus {
+  border-color: var(--accent-light);
+  box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.14);
+}
+
+.fieldGroup input::placeholder,
+.addRow input::placeholder {
+  color: var(--soft);
+}
+
+.amountPreview {
+  height: 46px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(180,35,24,0.45);
+  font-weight: 600;
+  color: #fff;
+}
+
+.actionGroup {
+  justify-content: flex-end;
+}
+
+.actionGroup .actionBtn {
+  width: 100%;
+  height: 46px;
+}
+
+.manageSection {
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.manageHeader {
+  margin-bottom: 18px;
+}
+
+.managerShell.hidden,
+.hidden {
+  display: none !important;
+}
+
+.managerGrid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 18px;
+}
+
+.managerCard {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.cardTop h3 {
+  font-size: 1.2rem;
+}
+
+.categoriesList,
+.nomineesList {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.categoryItem,
+.nomineeItem {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.categoryMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.categoryClickable {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.categoryClickable:hover,
+.categoryClickable.active {
+  background: rgba(180,35,24,0.16);
+  border-color: rgba(180,35,24,0.38);
+}
+
+.categoryMeta {
+  font-size: 0.85rem;
+  color: var(--soft);
+}
+
+.titleActions,
+.rowActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.addRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+
+.emptyState {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--soft);
+  border: 2px dashed rgba(255,255,255,0.12);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.02);
+  padding: 20px;
+}
+
+.nomineeEditorRow {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+}
+
+@media (max-width: 1100px) {
+  .manualVoteForm {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .managerGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionTop,
+  .manageHeader,
+  .cardTop {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .addRow {
+    grid-template-columns: 1fr;
+  }
+
+  .categoryMain {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nomineeEditorRow {
+    grid-template-columns: 1fr;
+  }
+
+  .titleActions .actionBtn,
+  .rowActions .actionBtn,
+  .nomineeEditorRow .actionBtn,
+  .addRow .actionBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .manualVoteCard,
+  .manageSection,
+  .managerCard {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .manualVoteForm {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionTop h2,
+  .manageHeader h2 {
+    font-size: 1.15rem;
+  }
+
+  .fieldGroup select,
+  .fieldGroup input,
+  .addRow input,
+  .actionBtn {
+    height: 44px;
+    font-size: 0.9rem;
+  }
+}
