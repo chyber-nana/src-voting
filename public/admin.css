@@ -281,3 +281,329 @@ body {
   transform: translateY(0);
 }
 
+.sectionTop,
+.manageHeader,
+.cardTop {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.sectionTop {
+  margin-bottom: 20px;
+}
+
+.sectionTop h2,
+.manageHeader h2 {
+  font-size: 1.35rem;
+  margin-bottom: 8px;
+}
+
+.sectionTop p,
+.manageHeader p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.actionBtn {
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.actionBtn:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.08);
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, #86160e, #b42318);
+  border: none;
+  box-shadow: 0 10px 24px rgba(134, 22, 14, 0.3);
+}
+
+.primaryBtn:hover {
+  box-shadow: 0 14px 28px rgba(134, 22, 14, 0.38);
+}
+
+.subtleBtn {
+  color: #e5e7eb;
+}
+
+.dangerBtn {
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+}
+
+.dangerBtn:hover {
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.manualVoteSection {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.manualVoteCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.manualVoteForm {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  align-items: end;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldGroup label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.fieldGroup select,
+.fieldGroup input,
+.addRow input,
+.nomineeNameInput,
+.categoryNameInput {
+  height: 46px;
+  border-radius: 14px;
+  padding: 0 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(180,35,24,0.45);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.fieldGroup select:focus,
+.fieldGroup input:focus,
+.addRow input:focus,
+.nomineeNameInput:focus,
+.categoryNameInput:focus {
+  border-color: var(--accent-light);
+  box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.14);
+}
+
+.fieldGroup input::placeholder,
+.addRow input::placeholder {
+  color: var(--soft);
+}
+
+.amountPreview {
+  height: 46px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(180,35,24,0.45);
+  font-weight: 600;
+  color: #fff;
+}
+
+.actionGroup {
+  justify-content: flex-end;
+}
+
+.actionGroup .actionBtn {
+  width: 100%;
+  height: 46px;
+}
+
+.manageSection {
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.manageHeader {
+  margin-bottom: 18px;
+}
+
+.managerShell.hidden,
+.hidden {
+  display: none !important;
+}
+
+.managerGrid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 18px;
+}
+
+.managerCard {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.cardTop h3 {
+  font-size: 1.2rem;
+}
+
+.categoriesList,
+.nomineesList {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.categoryItem,
+.nomineeItem {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.categoryMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.categoryClickable {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.categoryClickable:hover,
+.categoryClickable.active {
+  background: rgba(180,35,24,0.16);
+  border-color: rgba(180,35,24,0.38);
+}
+
+.categoryMeta {
+  font-size: 0.85rem;
+  color: var(--soft);
+}
+
+.titleActions,
+.rowActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.addRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+
+.emptyState {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--soft);
+  border: 2px dashed rgba(255,255,255,0.12);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.02);
+  padding: 20px;
+}
+
+.nomineeEditorRow {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+}
+
+@media (max-width: 1100px) {
+  .manualVoteForm {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .managerGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionTop,
+  .manageHeader,
+  .cardTop {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .addRow {
+    grid-template-columns: 1fr;
+  }
+
+  .categoryMain {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nomineeEditorRow {
+    grid-template-columns: 1fr;
+  }
+
+  .titleActions .actionBtn,
+  .rowActions .actionBtn,
+  .nomineeEditorRow .actionBtn,
+  .addRow .actionBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .manualVoteCard,
+  .manageSection,
+  .managerCard {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .manualVoteForm {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionTop h2,
+  .manageHeader h2 {
+    font-size: 1.15rem;
+  }
+
+  .fieldGroup select,
+  .fieldGroup input,
+  .addRow input,
+  .actionBtn {
+    height: 44px;
+    font-size: 0.9rem;
+  }
+}

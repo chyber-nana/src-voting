@@ -100,9 +100,7 @@ body {
 }
 
 .summaryCard,
-.tableSection,
-.manageSection,
-.managerCard {
+.tableSection {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -149,7 +147,7 @@ body {
 }
 
 .sectionTop,
-.manageHeader,
+
 .cardTop {
   display: flex;
   align-items: end;
@@ -187,28 +185,7 @@ body {
   color: #e5e7eb;
 }
 
-.filterBox select,
-.addRow input,
-.nomineeNameInput,
-.categoryNameInput {
-  height: 46px;
-  border-radius: 14px;
-  padding: 0 14px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(180,35,24,0.45);
-  color: #5a5959;
-  font-size: 0.95rem;
-  outline: none;
-  transition: all 0.25s ease;
-}
 
-.filterBox select:focus,
-.addRow input:focus,
-.nomineeNameInput:focus,
-.categoryNameInput:focus {
-  border-color: var(--accent-light);
-  box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.14);
-}
 
 .tableWrap {
   width: 100%;
@@ -296,236 +273,11 @@ tbody tr:hover {
   margin-bottom: 18px;
 }
 
-.managerShell.hidden,
+
 .hidden {
   display: none !important;
 }
 
-.managerGrid {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 18px;
-}
-
-.managerCard {
-  padding: 20px;
-}
-
-.cardTop h3 {
-  font-size: 1.2rem;
-}
-
-.categoriesList,
-.nomineesList {
-  display: grid;
-  gap: 12px;
-  margin-top: 18px;
-  margin-bottom: 18px;
-}
-
-.categoryItem,
-.nomineeItem {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 14px;
-  display: grid;
-  gap: 12px;
-}
-
-.categoryMain {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.categoryClickable {
-  flex: 1;
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.04);
-  color: #fff;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.25s ease;
-}
-
-.categoryClickable:hover,
-.categoryClickable.active {
-  background: rgba(180,35,24,0.16);
-  border-color: rgba(180,35,24,0.38);
-}
-
-.categoryMeta {
-  font-size: 0.85rem;
-  color: var(--soft);
-}
-
-.titleActions,
-.rowActions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.actionBtn {
-  height: 42px;
-  padding: 0 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.05);
-  color: #fff;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.25s ease;
-}
-
-.actionBtn:hover {
-  transform: translateY(-1px);
-  background: rgba(255,255,255,0.08);
-}
-
-.primaryBtn {
-  background: linear-gradient(135deg, #86160e, #b42318);
-  border: none;
-  box-shadow: 0 10px 24px rgba(134, 22, 14, 0.3);
-}
-
-.primaryBtn:hover {
-  box-shadow: 0 14px 28px rgba(134, 22, 14, 0.38);
-}
-
-.subtleBtn {
-  color: #e5e7eb;
-}
-
-.dangerBtn {
-  border-color: rgba(239, 68, 68, 0.35);
-  color: #fca5a5;
-}
-
-.dangerBtn:hover {
-  background: rgba(239, 68, 68, 0.12);
-}
-
-.addRow {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-}
-
-.emptyState {
-  min-height: 220px;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  color: var(--soft);
-  border: 2px dashed rgba(255,255,255,0.12);
-  border-radius: 18px;
-  background: rgba(255,255,255,0.02);
-  padding: 20px;
-}
-
-.nomineeEditorRow {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 10px;
-  align-items: center;
-}
-
-.manualVoteSection {
-  width: 100%;
-}
-
-.manualVoteCard {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(12px);
-}
-
-.manualVoteForm {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
-  align-items: end;
-}
-
-.fieldGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.fieldGroup label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #e5e7eb;
-}
-
-.amountPreview{
-  height:46px;
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  padding:0 14px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(180,35,24,0.45);
-  font-weight:600;
-}
-
-.fieldGroup select,
-.fieldGroup input {
-  height: 46px;
-  border-radius: 14px;
-  padding: 0 14px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(180,35,24,0.45);
-  color: #7a7a7a;
-  font-size: 0.95rem;
-  outline: none;
-  transition: all 0.25s ease;
-}
-
-.fieldGroup select:focus,
-.fieldGroup input:focus {
-  border-color: var(--accent-light);
-  box-shadow: 0 0 0 4px rgba(180,35,24,0.14);
-}
-
-.fieldGroup input::placeholder {
-  color: var(--soft);
-}
-
-.actionGroup {
-  justify-content: flex-end;
-}
-
-.actionGroup .actionBtn {
-  width: 100%;
-  height: 46px;
-}
-
-@media (max-width: 1100px) {
-  .manualVoteForm {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .manualVoteCard {
-    padding: 18px;
-    border-radius: 18px;
-  }
-
-  .manualVoteForm {
-    grid-template-columns: 1fr;
-  }
-}
 
 @media (max-width: 1200px) {
   .summaryGrid {
@@ -534,10 +286,6 @@ tbody tr:hover {
 
   .totalCard {
     grid-column: span 2;
-  }
-
-  .managerGrid {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -555,23 +303,10 @@ tbody tr:hover {
   }
 
   .sectionTop,
-  .manageHeader,
+  
   .cardTop {
     flex-direction: column;
     align-items: stretch;
-  }
-
-  .filterBox,
-  .addRow {
-    min-width: 100%;
-  }
-
-  .addRow {
-    grid-template-columns: 1fr;
-  }
-
-  .nomineeEditorRow {
-    grid-template-columns: 1fr;
   }
 
   .badge {
@@ -597,10 +332,7 @@ body {
 /* make major containers shrink properly */
 .dashboard,
 .summaryGrid,
-.managerGrid,
 .tableSection,
-.manageSection,
-.managerCard,
 .tableWrap {
   min-width: 0;
 }
@@ -613,15 +345,6 @@ body {
 
 table {
   width: 100%;
-}
-
-/* buttons and inputs scale better */
-.actionBtn,
-.filterBox select,
-.addRow input,
-.nomineeNameInput,
-.categoryNameInput {
-  min-width: 0;
 }
 
 /* ===== LARGE TABLETS / SMALL LAPTOPS ===== */
@@ -638,17 +361,13 @@ table {
     grid-column: span 2;
   }
 
-  .managerGrid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .categoriesCard,
   .nomineesCard {
     width: 100%;
   }
 
   .sectionTop,
-  .manageHeader,
+  
   .cardTop {
     align-items: flex-start;
   }
@@ -681,9 +400,7 @@ table {
   }
 
   .summaryCard,
-  .tableSection,
-  .manageSection,
-  .managerCard {
+  .tableSection {
     padding: 18px;
     border-radius: 18px;
   }
@@ -697,7 +414,7 @@ table {
   }
 
   .sectionTop,
-  .manageHeader,
+  
   .cardTop {
     flex-direction: column;
     justify-content: flex-start;
@@ -711,42 +428,6 @@ table {
   }
 
   .filterBox select {
-    width: 100%;
-  }
-
-  .titleActions,
-  .rowActions {
-    width: 100%;
-    flex-wrap: wrap;
-  }
-
-  .titleActions .actionBtn,
-  .rowActions .actionBtn {
-    flex: 1 1 140px;
-  }
-
-  .addRow {
-    grid-template-columns: 1fr;
-  }
-
-  .addRow .actionBtn {
-    width: 100%;
-  }
-
-  .categoryMain {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .categoryClickable {
-    width: 100%;
-  }
-
-  .nomineeEditorRow {
-    grid-template-columns: 1fr;
-  }
-
-  .nomineeEditorRow .actionBtn {
     width: 100%;
   }
 
@@ -798,9 +479,7 @@ table {
   }
 
   .summaryCard,
-  .tableSection,
-  .manageSection,
-  .managerCard {
+  .tableSection {
     padding: 16px;
     border-radius: 16px;
   }
@@ -828,53 +507,8 @@ table {
     font-size: 0.88rem;
   }
 
-  .cardTop h3 {
-    font-size: 1.05rem;
-  }
-
   .filterBox label {
     font-size: 0.85rem;
-  }
-
-  .filterBox select,
-  .addRow input,
-  .nomineeNameInput,
-  .categoryNameInput,
-  .actionBtn {
-    height: 44px;
-    font-size: 0.9rem;
-  }
-
-  .actionBtn {
-    padding: 0 14px;
-  }
-
-  .categoriesList,
-  .nomineesList {
-    gap: 10px;
-    margin-top: 14px;
-    margin-bottom: 14px;
-  }
-
-  .categoryItem,
-  .nomineeItem {
-    padding: 12px;
-    border-radius: 14px;
-  }
-
-  .categoryClickable {
-    padding: 11px 12px;
-    font-size: 0.92rem;
-  }
-
-  .categoryMeta {
-    font-size: 0.8rem;
-  }
-
-  .emptyState {
-    min-height: 150px;
-    padding: 16px;
-    font-size: 0.9rem;
   }
 
   .status {
@@ -911,9 +545,7 @@ table {
   }
 
   .summaryCard,
-  .tableSection,
-  .manageSection,
-  .managerCard {
+  .tableSection {
     padding: 14px;
   }
 
@@ -928,15 +560,6 @@ table {
   .sectionTop h2,
   .manageHeader h2 {
     font-size: 1.08rem;
-  }
-
-  .filterBox select,
-  .addRow input,
-  .nomineeNameInput,
-  .categoryNameInput,
-  .actionBtn {
-    height: 42px;
-    font-size: 0.88rem;
   }
 
   .logo .image {
