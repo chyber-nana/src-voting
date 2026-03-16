@@ -66,6 +66,7 @@
         const data = await res.json();
 
         if (res.ok) {
+          sessionStorage.setItem('adminLoggedIn', 'true');
           window.location.href = data.redirect || '/admin';
         } else {
           loginError.textContent = data.error || 'Login failed';

@@ -1,3 +1,7 @@
+if (!sessionStorage.getItem('adminLoggedIn')) {
+  window.location.href = '/admin-login.html';
+}
+
 const searchTrans = document.getElementById("searchTrans");
 
 let adminCategoriesData = [];
