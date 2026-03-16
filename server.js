@@ -3,7 +3,6 @@ const path = require("path");
 const cors = require("cors");
 const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
-const ussdRoutes = require("./server/routes/ussd");
 require("dotenv").config();
 
 const { pool } = require("./server/config/db");
@@ -46,9 +45,9 @@ const dashboardRoutes = require("./server/routes/dashboardRoutes");
 const paymentRoutes = require("./server/routes/paymentRoutes");
 const adminRoutes = require("./server/routes/admin");
 const authRoutes = require("./server/routes/auth");
+const ussdRoutes = require("./server/routes/ussd");
 
 
-app.use("/api/ussd", ussdRoutes);
 
 function requireAdmin(req, res, next) {
   if (!req.session.admin) {
@@ -64,6 +63,7 @@ app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", requireAdmin, adminRoutes);
+app.use("/api/ussd", ussdRoutes);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
