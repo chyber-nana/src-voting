@@ -46,7 +46,6 @@ const dashboardRoutes = require("./server/routes/dashboardRoutes");
 const paymentRoutes = require("./server/routes/paymentRoutes");
 const adminRoutes = require("./server/routes/admin");
 const authRoutes = require("./server/routes/auth");
-app.use(express.urlencoded({ extended: false }));
 
 
 app.use("/api/ussd", ussdRoutes);

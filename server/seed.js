@@ -205,59 +205,85 @@
 
 // initDb();
 
+// require("dotenv").config({ path: require("path").resolve(__dirname, "../.env") });
+// const { pool } = require("./config/db");
+
+// const categories = [
+//   "Face of Botwe",
+//   "Fattest wallet",
+//   "Geyhey Headboy",
+//   "Holico Headboy",
+//   "Syte Headboy",
+//   "Most Hyped",
+//   "Friend group of the year",
+//   "Personality of the year",
+//   "Club of the year",
+//   "Prefect of the year",
+//   "Man Botwe",
+//   "Best Photographer",
+//   "Best Sportsman",
+//   "Most Creative",
+//   "Gentleman of the Year",
+//   "Best Duo",
+//   "Artiste of the Year",
+//   "Dancer of the Year",
+//   "Most Photogenic",
+//   "Nickname of the Year"
+// ];
+
+// async function seedCategories() {
+//   const client = await pool.connect();
+
+//   try {
+//     console.log("Seeding categories...");
+//     await client.query("BEGIN");
+
+//     for (const name of categories) {
+//       await client.query(
+//         `
+//         INSERT INTO categories (name)
+//         VALUES ($1)
+//         ON CONFLICT (name) DO NOTHING
+//         `,
+//         [name]
+//       );
+//     }
+
+//     await client.query("COMMIT");
+//     console.log("Categories seeded successfully.");
+//   } catch (err) {
+//     await client.query("ROLLBACK");
+//     console.error("Seeding failed:", err);
+//   } finally {
+//     client.release();
+//     await pool.end();
+//   }
+// }
+
+// seedCategories();
+
+
 require("dotenv").config({ path: require("path").resolve(__dirname, "../.env") });
 const { pool } = require("./config/db");
 
-const categories = [
-  "Face of Botwe",
-  "Fattest wallet",
-  "Geyhey Headboy",
-  "Holico Headboy",
-  "Syte Headboy",
-  "Most Hyped",
-  "Friend group of the year",
-  "Personality of the year",
-  "Club of the year",
-  "Prefect of the year",
-  "Man Botwe",
-  "Best Photographer",
-  "Best Sportsman",
-  "Most Creative",
-  "Gentleman of the Year",
-  "Best Duo",
-  "Artiste of the Year",
-  "Dancer of the Year",
-  "Most Photogenic",
-  "Nickname of the Year"
-];
-
-async function seedCategories() {
-  const client = await pool.connect();
-
+const updateNomineesTable = async () => {
   try {
-    console.log("Seeding categories...");
-    await client.query("BEGIN");
+    // PostgreSQL uses a slightly different syntax for ADD COLUMN IF NOT EXISTS
+    // but the logic remains the same.
+    const query = `
+      ALTER TABLE nominees 
+      ADD COLUMN IF NOT EXISTS votes INTEGER NOT NULL DEFAULT 0;
+    `;
 
-    for (const name of categories) {
-      await client.query(
-        `
-        INSERT INTO categories (name)
-        VALUES ($1)
-        ON CONFLICT (name) DO NOTHING
-        `,
-        [name]
-      );
-    }
-
-    await client.query("COMMIT");
-    console.log("Categories seeded successfully.");
+    await pool.query(query);
+    console.log("✅ Nominees table updated: 'votes' column added.");
+    
   } catch (err) {
-    await client.query("ROLLBACK");
-    console.error("Seeding failed:", err);
+    console.error("❌ Error updating nominees table:", err.message);
   } finally {
-    client.release();
+    // Close the pool connection so the script can exit
     await pool.end();
   }
-}
+};
 
-seedCategories();
+updateNomineesTable();
