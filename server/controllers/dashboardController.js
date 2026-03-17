@@ -41,7 +41,9 @@ const getDashboardStats = async (req, res) => {
     );
 
     const totalResult = await pool.query(
-      `SELECT COALESCE(SUM(amount_paid), 0) AS total FROM votes`
+      `SELECT COALESCE(SUM(amount_paid), 0) AS total
+       FROM votes
+       WHERE status = 'approved'`
     );
 
     res.json({
