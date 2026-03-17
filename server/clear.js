@@ -12,8 +12,6 @@ async function clearDatabase() {
 
     await client.query("DELETE FROM votes");
     await client.query("DELETE FROM payments");
-    await client.query("DELETE FROM nominees");
-    await client.query("DELETE FROM categories");
 
     await client.query("ALTER SEQUENCE votes_id_seq RESTART WITH 1");
     await client.query("ALTER SEQUENCE payments_id_seq RESTART WITH 1");
