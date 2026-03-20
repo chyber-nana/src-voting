@@ -1,4 +1,5 @@
 if (!sessionStorage.getItem('adminLoggedIn')) {
+  alert("Hi")
   window.location.href = '/admin-login.html';
 }
 
