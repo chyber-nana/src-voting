@@ -1,3 +1,7 @@
+if (!sessionStorage.getItem('adminLoggedIn')) {
+  window.location.href = '/admin-login.html';
+}
+
 let categoriesData = [];
 
 const categoryFilter = document.getElementById("categoryFilter");
