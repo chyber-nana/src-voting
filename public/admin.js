@@ -1,5 +1,5 @@
 if (!sessionStorage.getItem('adminLoggedIn')) {
-  window.location.href = '../public/admin-login.html';
+  window.location.href = '/admin-login.html';
 }
 
 const searchTrans = document.getElementById("searchTrans");
