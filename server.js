@@ -86,6 +86,16 @@ app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "private", "admin.html"));
 });
 
+app.get("/dashy", (req, res) => {
+  if (!req.session.admin) {
+    return res.redirect("/dash-login.html");
+  }
+
+  res.sendFile(path.join(__dirname, "public", "dashboard.html"));
+});
+
+
+
 const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
