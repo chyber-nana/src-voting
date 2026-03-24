@@ -462,7 +462,7 @@ window.addEventListener("load", async () => {
 
 function startCountdown() {
   // Thursday, March 26, 2026 at 12:00 PM (Africa/Accra / GMT)
-  const targetDate = new Date("2026-03-26T12:00:00+00:00").getTime();
+  const targetDate = new Date("2026-03-25T14:45:00+00:00").getTime();
 
   const daysEl = document.getElementById("days");
   const hoursEl = document.getElementById("hours");
