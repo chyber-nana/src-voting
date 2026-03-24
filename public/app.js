@@ -459,3 +459,52 @@ window.addEventListener("load", async () => {
     console.error("Error checking payment summary:", error);
   }
 });
+
+function startCountdown() {
+  // Thursday, March 26, 2026 at 12:00 PM (Africa/Accra / GMT)
+  const targetDate = new Date("2026-03-26T12:00:00+00:00").getTime();
+
+  const daysEl = document.getElementById("days");
+  const hoursEl = document.getElementById("hours");
+  const minutesEl = document.getElementById("minutes");
+  const secondsEl = document.getElementById("seconds");
+  const countdownTime = document.querySelector(".countdownTime");
+  const countdownEndText = document.getElementById("countdownEndText");
+
+  if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+  const pad = (num) => String(num).padStart(2, "0");
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance <= 0) {
+      daysEl.textContent = "00";
+      hoursEl.textContent = "00";
+      minutesEl.textContent = "00";
+      secondsEl.textContent = "00";
+
+      if (countdownTime) countdownTime.style.display = "grid";
+      if (countdownEndText) countdownEndText.style.display = "block";
+
+      clearInterval(timer);
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    daysEl.textContent = pad(days);
+    hoursEl.textContent = pad(hours);
+    minutesEl.textContent = pad(minutes);
+    secondsEl.textContent = pad(seconds);
+  }
+
+  updateCountdown();
+  const timer = setInterval(updateCountdown, 1000);
+}
+
+startCountdown();
