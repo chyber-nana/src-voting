@@ -271,16 +271,13 @@ const updateNomineesTable = async () => {
     // PostgreSQL uses a slightly different syntax for ADD COLUMN IF NOT EXISTS
     // but the logic remains the same.
     const query = `
-      CREATE TABLE IF NOT EXISTS system_flags (
-  key TEXT PRIMARY KEY,
-  value TEXT,
-  updated_at TIMESTAMP DEFAULT NOW()
-);
+      DELETE FROM system_flags WHERE key = 'voting_finalized';
     `;
 
-    let text = await pool.query(query);
-    console.log(text)
-    // console.log("✅ Nominees table updated: 'votes' column added.");
+    const result = await pool.query(query);
+    console.log(result)
+
+    console.log("✅Done.");
     
   } catch (err) {
     console.error("❌ Error Doing the thing:", err.message);

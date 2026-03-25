@@ -114,6 +114,10 @@ function buildCsv(rows) {
 }
 
 async function sendResultsEmail(csvPath) {
+  console.log("Preparing email...");
+  console.log("From:", process.env.EMAIL_USER);
+  console.log("To:", process.env.RESULTS_TO_EMAIL);
+
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: Number(process.env.EMAIL_PORT || 587),
@@ -124,7 +128,7 @@ async function sendResultsEmail(csvPath) {
     },
   });
 
-  await transporter.sendMail({
+  const info = await transporter.sendMail({
     from: process.env.EMAIL_USER,
     to: process.env.RESULTS_TO_EMAIL,
     subject: "Voting Results CSV",
@@ -136,23 +140,38 @@ async function sendResultsEmail(csvPath) {
       },
     ],
   });
+
+  console.log("Email sent successfully:", info.response);
 }
 
 async function finalizeVotingIfNeeded() {
-  if (!votingEnded()) return;
+  console.log("finalizeVotingIfNeeded called");
+  console.log("Now:", new Date().toISOString());
+  console.log("Voting end:", VOTING_END.toISOString());
+
+  if (!votingEnded()) {
+    console.log("Voting has not ended yet");
+    return false;
+  }
 
   const client = await pool.connect();
 
   try {
     await client.query("BEGIN");
+    console.log("DB transaction started");
 
     const done = await alreadyFinalized(client);
+    console.log("Already finalized:", done);
+
     if (done) {
       await client.query("COMMIT");
-      return;
+      console.log("Skipping because already finalized");
+      return "already_finalized";
     }
 
     const rankedRows = await getRankedResults(client);
+    console.log("Ranked rows count:", rankedRows.length);
+
     const csv = buildCsv(rankedRows);
 
     const exportDir = path.join(process.cwd(), "exports");
@@ -164,15 +183,22 @@ async function finalizeVotingIfNeeded() {
     const csvPath = path.join(exportDir, fileName);
 
     fs.writeFileSync(csvPath, csv, "utf8");
+    console.log("CSV written to:", csvPath);
 
     await sendResultsEmail(csvPath);
+    console.log("Email send function completed");
+
     await markFinalized(client);
+    console.log("Marked finalized in system_flags");
 
     await client.query("COMMIT");
     console.log("Voting finalized, CSV created, and email sent.");
+
+    return "sent";
   } catch (error) {
     await client.query("ROLLBACK");
     console.error("Error finalizing voting:", error);
+    return "error";
   } finally {
     client.release();
   }
