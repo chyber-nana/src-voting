@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const nodemailer = require("resend");
+const { Resend } = require("resend");
 const { pool } = require("../config/db");
 
 const VOTING_END = new Date(
