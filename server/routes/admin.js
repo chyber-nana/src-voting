@@ -1,6 +1,7 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const adminController = require('../controllers/adminController');
+const adminController = require("../controllers/adminController");
+const { votingEnded } = require("../utils/votingFinalizer");
 
 function requireAdmin(req, res, next) {
   if (!req.session.admin) {
@@ -9,8 +10,18 @@ function requireAdmin(req, res, next) {
   next();
 }
 
-router.get('/queue', requireAdmin, adminController.getQueue);
-router.get('/stats', requireAdmin, adminController.getStats);
-router.post('/verify', requireAdmin, adminController.verifyVote);
+function blockIfVotingEnded(req, res, next) {
+  if (votingEnded()) {
+    return res.status(403).json({
+      success: false,
+      message: "Voting has ended",
+    });
+  }
+  next();
+}
+
+router.get("/queue", requireAdmin, adminController.getQueue);
+router.get("/stats", requireAdmin, adminController.getStats);
+router.post("/verify", requireAdmin, blockIfVotingEnded, adminController.verifyVote);
 
 module.exports = router;

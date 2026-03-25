@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { pool } = require("../config/db");
+const { votingEnded } = require("../utils/votingFinalizer");
 
 const PRICE_PER_VOTE = 1;
 
@@ -9,6 +10,9 @@ router.post("/callback", async (req, res) => {
   const { sessionId, serviceCode, phoneNumber, text } = req.body;
 
   res.set("Content-Type", "text/plain");
+  if (votingEnded()) {
+  return res.send("END Voting has ended.");
+}
 
   const input = (text || "").trim();
 
