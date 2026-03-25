@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const nodemailer = require("nodemailer");
+const nodemailer = require("resend");
 const { pool } = require("../config/db");
 
 const VOTING_END = new Date(
@@ -114,34 +114,51 @@ function buildCsv(rows) {
 }
 
 async function sendResultsEmail(csvPath) {
-  console.log("Preparing email...");
-  console.log("From:", process.env.EMAIL_USER);
+  console.log("Preparing Resend email...");
+  console.log("From:", process.env.RESEND_FROM);
   console.log("To:", process.env.RESULTS_TO_EMAIL);
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: Number(process.env.EMAIL_PORT || 587),
-    secure: false,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error("Missing RESEND_API_KEY");
+  }
 
-  const info = await transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to: process.env.RESULTS_TO_EMAIL,
+  if (!process.env.RESEND_FROM) {
+    throw new Error("Missing RESEND_FROM");
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  const csvBuffer = fs.readFileSync(csvPath);
+  const recipients = process.env.RESULTS_TO_EMAIL
+    .split(",")
+    .map((email) => email.trim())
+    .filter(Boolean);
+
+  const { data, error } = await resend.emails.send({
+    from: process.env.RESEND_FROM,
+    to: recipients,
     subject: "Voting Results CSV",
+    html: `
+      <h2>Voting Results</h2>
+      <p>Attached is the final voting results CSV with nominees ranked by highest votes and winners marked by category.</p>
+    `,
     text: "Attached is the final voting results CSV with nominees ranked by highest votes and winners marked by category.",
     attachments: [
       {
         filename: path.basename(csvPath),
-        path: csvPath,
+        content: csvBuffer.toString("base64"),
       },
     ],
   });
 
-  console.log("Email sent successfully:", info.response);
+  if (error) {
+    console.error("Resend send error:", error);
+    throw new Error(
+      typeof error === "string" ? error : JSON.stringify(error),
+    );
+  }
+
+  console.log("Resend email sent successfully:", data);
 }
 
 async function finalizeVotingIfNeeded() {
